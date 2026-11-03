@@ -1,7 +1,55 @@
-# dsh.so 插件市场提交资料
+# 插件市场提交资料
 
-> 提交前必须先做一件事：把 GitHub 仓库名从 `-` 改成 `dsh-drive-manager`。
-> dsh.so 要求插件 id 匹配 `^[a-z0-9]+(-[a-z0-9]+)*$`，`-` 不符合，会被检查器拒绝。
+> 这里有两个不同的市场，别混：
+>
+> - **dsh-market**（你发的 <https://github.com/dsh-market/dsh-market>）：DSH 内的可视化插件市场，目录来自 `awesome-dsh-plugin` 仓库；收录方式是**向 `awesome-dsh-plugin` 提 PR，加一个 YAML**。
+> - **dsh.so**（<https://www.dsh.so/zh/submit/>）：另一个社区插件索引；收录方式是在网页提交仓库地址、跑检查、点提交。
+>
+> 两个可以都做，但**不是同一个入口**。
+
+## 一、dsh-market 收录（推荐先做）
+
+### 提交方式
+
+1. Fork：<https://github.com/awesome-dsh-plugin/awesome-dsh-plugin>
+2. 在你的 fork 里新建一个文件：
+
+```text
+data/plugins/JKL-3484__dsh-drive-manager.yml
+```
+
+3. 内容：
+
+```yaml
+url: https://github.com/JKL-3484/dsh-drive-manager
+name: JKL-3484/dsh-drive-manager
+category: tools
+description:
+  en: "Windows multi-drive dashboard that labels cleanable, caution, and system space in green, yellow, and red, audits download folders, and suggests how to split data across drives."
+  zh: "Windows 多盘磁盘分工面板：用绿/黄/红标出可清理、需确认、系统占用，核对下载目录，并给出多盘分工与迁移建议。"
+```
+
+4. 对这个 fork 开 PR，目标 `awesome-dsh-plugin/awesome-dsh-plugin:main`。
+5. PR 标题：`Add JKL-3484/dsh-drive-manager`
+6. 等 CI + 维护者审核；README 会自动生成，不需要手动改。
+
+### 已满足的收录条件
+
+- `package.json` 声明了 `dsh.bundle.patch`（`./cordis.patch.yml`）✅
+- 仓库根有 `cordis.patch.yml` ✅
+- 有真实可用代码（`plugin/index.js`、`plugin/client.js`）✅
+- 仓库创建满 1 天（2026-10-26 创建）✅
+- 有 `dsh-plugin` topic ✅
+- 描述只讲功能，不带营销词 ✅
+- MIT 许可证 ✅
+- Windows 10/11；DSH `>= 0.2.1-rc.2`（实测 0.2.1-rc.3）✅
+
+## 二、dsh.so 收录（可选）
+
+1. 打开 <https://www.dsh.so/zh/submit/>
+2. 粘贴 `https://github.com/JKL-3484/dsh-drive-manager`
+3. 类型选 **dsh 插件**
+4. 点“开始检查”，通过后点“提交到 dsh.so”
 
 ## 基本信息
 
@@ -13,7 +61,7 @@
 | 仓库 | https://github.com/JKL-3484/dsh-drive-manager |
 | 许可证 | MIT |
 | 平台 | Windows 10 / 11 |
-| DSH 兼容 | `>= 0.2.1-rc.2`（本机实测 `0.2.1-rc.3`） |
+| DSH 兼容 | `>= 0.2.1-rc.2` |
 | 安装 | `dsh plugin --profile desktop add github:JKL-3484/dsh-drive-manager` |
 | 类型 | dsh 插件（可通过 `dsh plugin add` 安装） |
 
@@ -33,11 +81,6 @@
 
 **只读**：没有删除按钮，不执行删除命令；只有“在资源管理器中打开”。
 
-## 标签 / 分类
-
-- 分类：系统工具 / 磁盘管理
-- 标签：`dsh-plugin`、`disk`、`storage`、`cleanup`、`windows`、`multi-drive`
-
 ## 截图
 
 - `docs/screenshots/overview.png`
@@ -47,19 +90,8 @@
 - `docs/screenshots/plan.png`
 - `docs/screenshots/multi-drive.png`
 
-## 提交前检查
-
-- [ ] 仓库已改名为 `dsh-drive-manager`（Settings → Rename）
-- [ ] 给仓库添加 GitHub topic：`dsh-plugin`
-- [ ] `package.json` 的 `repository` / `homepage` / `bugs` 已指向新仓库
-- [ ] README 安装命令已改为 `github:JKL-3484/dsh-drive-manager`
-- [ ] 最新代码已 push 到 `main`
-- [ ] 打开 https://www.dsh.so/zh/submit/，粘贴仓库地址
-- [ ] 检查器通过后点击“提交到 dsh.so”
-- [ ] 在 dsh.so 的提交 Issue 中补充：Windows-only、只读、无网络请求
-
 ## 审核说明
 
-- 源码扫描：`plugin/index.js`、`plugin/client.js`，无硬编码密钥、无外联、无删除 API。
+- 源码扫描：`plugin/index.js`、`plugin/client.js`；无硬编码密钥、无外联、无删除 API。
 - 子进程：仅 `Get-CimInstance`、`reg query`、`explorer.exe`，详见 `SECURITY.md`。
 - 权限：只读扫描；大目录按时间预算统计，显示 `≥` 表示部分统计。

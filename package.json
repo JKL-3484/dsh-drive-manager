@@ -17,7 +17,7 @@
       "dsh": ">=0.2.1-rc.2"
     },
     "bundle": {
-      "patch": "./plugin/cordis.patch.yml"
+      "patch": "./cordis.patch.yml"
     },
     "client": {
       "platform": "web",
@@ -51,6 +51,7 @@
   ],
   "files": [
     "plugin/",
+    "cordis.patch.yml",
     "README.md",
     "LICENSE"
   ]
