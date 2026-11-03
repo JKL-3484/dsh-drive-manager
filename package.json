@@ -31,11 +31,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JKL-3484/-.git"
+    "url": "git+https://github.com/JKL-3484/dsh-drive-manager.git"
   },
-  "homepage": "https://github.com/JKL-3484/-#readme",
+  "homepage": "https://github.com/JKL-3484/dsh-drive-manager#readme",
   "bugs": {
-    "url": "https://github.com/JKL-3484/-/issues"
+    "url": "https://github.com/JKL-3484/dsh-drive-manager/issues"
   },
   "keywords": [
     "dsh",
